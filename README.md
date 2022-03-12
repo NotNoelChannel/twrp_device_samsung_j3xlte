@@ -1,2 +1,3 @@
-# twrp_device_samsung_j3xnlte
-TWRP device tree for the Galaxy J3 (2016) 
+# TWRP device tree for Samsung Galaxy J3 (2016)
+
+## `WORK IN PROGRESS. WILL EAT YOUR CAT.`
