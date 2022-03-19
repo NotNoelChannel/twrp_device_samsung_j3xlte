@@ -32,12 +32,11 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
 # keys
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../$(PLATFORM_PATH)/recovery/recovery_keys.c
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := device/samsung/j3xlte/recovery/recovery_keys.c
 BOARD_HAS_NO_SELECT_BUTTON := true
 
 TW_THEME := portrait_hdpi
 TW_EXCLUDE_SUPERSU := true
-TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/recovery.fstab
 TW_EXCLUDE_TWRPAPP := true
 TW_NO_EXFAT_FUSE := true
 TW_NEW_ION_HEAP := true
