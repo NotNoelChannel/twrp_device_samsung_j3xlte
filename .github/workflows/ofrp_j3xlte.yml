@@ -41,8 +41,10 @@ jobs:
         export PATH="$HOME/.jdk_7/java-se-7u75-ri/bin:$PATH"
         export JAVA_HOME="$HOME/.jdk_7/java-se-7u75-ri"
         cd ~/TWRP
+        git clone https://gitlab.com/OrangeFox/misc/theme.git bootable/recovery/gui/theme
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
+        export OF_DISABLE_MIUI_SPECIFIC_FEATURES=1
         export FOX_USE_TWRP_RECOVERY_IMAGE_BUILDER=1
         export LC_ALL=C
         lunch omni_j3xlte-eng
