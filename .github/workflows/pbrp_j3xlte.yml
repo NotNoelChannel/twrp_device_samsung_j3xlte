@@ -1,4 +1,4 @@
-name: TWRP CI
+name: PBRP CI
 
 on:
   workflow_dispatch:
