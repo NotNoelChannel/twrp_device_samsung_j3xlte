@@ -43,6 +43,7 @@ jobs:
         cd ~/TWRP
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
+        export FOX_USE_TWRP_RECOVERY_IMAGE_BUILDER=1
         export LC_ALL=C
         lunch omni_j3xlte-eng
         make -j$(nproc --all) recoveryimage
