@@ -37,7 +37,6 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 
 TW_THEME := portrait_hdpi
 TW_EXCLUDE_SUPERSU := true
-TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/recovery.fstab
 TW_EXCLUDE_TWRPAPP := true
 TW_NO_EXFAT_FUSE := true
 TW_NEW_ION_HEAP := true
