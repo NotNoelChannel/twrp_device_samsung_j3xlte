@@ -32,7 +32,7 @@ jobs:
         mkdir ~/.bin
         curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
         python3 ~/.bin/repo init --depth=1 -u https://gitlab.com/OrangeFox/Manifest.git -b fox_7.1
-        git clone --branch twrp-5.1-j3xlte --single-branch https://github.com/NotNoelChannel/twrp_device_samsung_j3xnlte.git ~/TWRP/device/samsung/j3xlte
+        git clone --branch twrp-5.1-j3xnlte --single-branch https://github.com/NotNoelChannel/twrp_device_samsung_j3xnlte.git ~/TWRP/device/samsung/j3xnlte
         python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
     - name: Building PBRP
       run: |
@@ -47,7 +47,7 @@ jobs:
         export OF_DISABLE_MIUI_SPECIFIC_FEATURES=1
         export FOX_USE_TWRP_RECOVERY_IMAGE_BUILDER=1
         export LC_ALL=C
-        lunch omni_j3xlte-eng
+        lunch omni_j3xnlte-eng
         make -j$(nproc --all) recoveryimage
         export PATH=$OLDPATH
         export JAVA_HOME=$OLDJAVAHOME
@@ -55,4 +55,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: twrp
-        path: /home/runner/TWRP/out/target/product/j3xlte/recovery.*
+        path: /home/runner/TWRP/out/target/product/j3xnlte/recovery.*
