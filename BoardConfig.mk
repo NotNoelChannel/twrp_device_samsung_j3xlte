@@ -43,5 +43,8 @@ TW_HAS_DOWNLOAD_MODE := true
 # display
 TW_MAX_BRIGHTNESS := 255
 TW_DEFAULT_BRIGHTNESS := 162
+RECOVERY_GRAPHICS_FORCE_SINGLE_BUFFER := true
+TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone1/temp"
+BOARD_RECOVERY_SWIPE := true
 TW_MTP_DEVICE := "/dev/mtp_usb"
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
