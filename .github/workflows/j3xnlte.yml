@@ -1,4 +1,4 @@
-name: TWRP CI (j3xn)
+name: TWRP CI
 
 on:
   workflow_dispatch:
@@ -22,8 +22,8 @@ jobs:
           libgl1-mesa-dev libxml2-utils xsltproc schedtool axel
         mkdir ~/.jdk_7
         cd ~/.jdk_7
-        axel -q -n $(nproc --all) https://repo.huaweicloud.com/java/jdk/8u202-b08/jdk-8u202-linux-x64.tar.gz
-        tar -xzf jdk-8u202-linux-x64.tar.gz
+        axel -q -n $(nproc --all) https://download.java.net/openjdk/jdk7u75/ri/openjdk-7u75-b13-linux-x64-18_dec_2014.tar.gz
+        tar -xzf openjdk-7u75-b13-linux-x64-18_dec_2014.tar.gz
         sudo ln -f -s /usr/bin/python2.7 /usr/bin/python
     - name: Syncing TWRP sources
       run: |
@@ -31,12 +31,8 @@ jobs:
         cd ~/TWRP
         mkdir ~/.bin
         curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
-        python3 ~/.bin/repo init --depth=1 -u https://github.com/LineageOS/android.git -b cm-14.1
-        git clone --branch cm-14.1 --single-branch https://github.com/djeman/android_device_samsung_sharkls-common.git ~/TWRP/device/samsung/sharkls-common
-        git clone --branch cm-14.1 --single-branch https://github.com/djeman/android_device_samsung_j3xnlte.git ~/TWRP/device/samsung/j3xnlte
-        git clone --branch cm-14.1 --single-branch https://github.com/djeman/android_kernel_samsung_sharkls.git ~/TWRP/kernel/samsung/sharkls
-        git clone --branch cm-14.1 --single-branch https://github.com/djeman/android_vendor_samsung_common.git ~/TWRP/vendor/samsung/common
-        git clone --branch cm-14.1 --single-branch https://github.com/djeman/android_vendor_sprd.git ~/TWRP/vendor/sprd
+        python3 ~/.bin/repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-5.1
+        git clone --branch twrp-5.1-j3xnlte --single-branch https://github.com/NotNoelChannel/twrp_device_samsung_j3xnlte.git ~/TWRP/device/samsung/j3xnlte
         python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
     - name: Building TWRP
       run: |
@@ -48,7 +44,7 @@ jobs:
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
-        lunch lineage_j3xnlte-eng
+        lunch omni_j3xnlte-eng
         make -j$(nproc --all) recoveryimage
         export PATH=$OLDPATH
         export JAVA_HOME=$OLDJAVAHOME
@@ -57,3 +53,4 @@ jobs:
       with:
         name: twrp
         path: /home/runner/TWRP/out/target/product/j3xnlte/recovery.*
+
