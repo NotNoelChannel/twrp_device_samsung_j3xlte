@@ -1,4 +1,4 @@
-name: TWRP CI
+name: TWRP CI (j3xn)
 
 on:
   workflow_dispatch:
