@@ -1,4 +1,4 @@
-name: PBRP CI
+name: OrangeFox Recovery (SM-J320F/G/M)
 
 on:
   workflow_dispatch:
