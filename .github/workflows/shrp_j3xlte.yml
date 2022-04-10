@@ -1,0 +1,56 @@
+name: OrangeFox Recovery (SM-J320F/G/M)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: TWRP Build CI
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-18.04]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Installing JDK 7 + Build Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install zip gcc-multilib g++-multilib \
+          libc6-dev-i386 lib32ncurses5-dev lib32z1-dev \
+          libgl1-mesa-dev libxml2-utils xsltproc schedtool axel
+        mkdir ~/.jdk_7
+        cd ~/.jdk_7
+        axel -q -n $(nproc --all) https://repo.huaweicloud.com/java/jdk/8u202-b08/jdk-8u202-linux-x64.tar.gz
+        tar -xzf jdk-8u202-linux-x64.tar.gz
+        sudo ln -f -s /usr/bin/python2.7 /usr/bin/python
+    - name: Syncing SHRP sources
+      run: |
+        mkdir ~/TWRP
+        cd ~/TWRP
+        mkdir ~/.bin
+        curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
+        python3 ~/.bin/repo init --depth=1 -u https://github.com/SHRP/manifest.git -b v3_9.0
+        git clone --branch twrp-5.1-j3xlte --single-branch https://github.com/NotNoelChannel/twrp_device_samsung_j3xnlte.git ~/TWRP/device/samsung/j3xlte
+        python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
+    - name: Building SHRP
+      run: |
+        OLDPATH=$PATH
+        OLDJAVAHOME=$JAVA_HOME
+        export PATH="$HOME/.jdk_7/java-se-7u75-ri/bin:$PATH"
+        export JAVA_HOME="$HOME/.jdk_7/java-se-7u75-ri"
+        cd ~/TWRP
+        source build/envsetup.sh
+        export OF_DISABLE_MIUI_SPECIFIC_FEATURES=1
+        export ALLOW_MISSING_DEPENDENCIES=true
+        export LC_ALL=C
+        lunch omni_j3xlte-eng
+        make -j$(nproc --all) recoveryimage
+        export PATH=$OLDPATH
+        export JAVA_HOME=$OLDJAVAHOME
+    - name: Uploading TWRP builds
+      uses: actions/upload-artifact@v2
+      with:
+        name: twrp
+        path: /home/runner/TWRP/out/target/product/j3xlte/recovery.*
