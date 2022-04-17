@@ -47,4 +47,5 @@ RECOVERY_GRAPHICS_FORCE_SINGLE_BUFFER := true
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone1/temp"
 BOARD_RECOVERY_SWIPE := true
 TW_MTP_DEVICE := "/dev/mtp_usb"
+TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/20200000.usb/gadget/lun%d/file"
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
