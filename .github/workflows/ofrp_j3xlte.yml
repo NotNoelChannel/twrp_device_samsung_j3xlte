@@ -46,6 +46,7 @@ jobs:
         export OF_DISABLE_MIUI_SPECIFIC_FEATURES=1
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
+        export OF_FL_PATH1="/flashlight"
         lunch omni_j3xlte-eng
         make -j$(nproc --all) recoveryimage
         export PATH=$OLDPATH
