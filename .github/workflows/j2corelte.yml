@@ -16,16 +16,16 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Installing JDK 7 + Build Dependencies
+    - name: Installing JDK 8 + Build Dependencies
       run: |
         sudo apt-get update
         sudo apt-get install zip gcc-multilib g++-multilib \
           libc6-dev-i386 lib32ncurses5-dev lib32z1-dev \
           libgl1-mesa-dev libxml2-utils xsltproc schedtool axel
-        mkdir ~/.jdk_7
-        cd ~/.jdk_7
-        axel -q -n $(nproc --all) https://download.java.net/openjdk/jdk7u75/ri/openjdk-7u75-b13-linux-x64-18_dec_2014.tar.gz
-        tar -xzf openjdk-7u75-b13-linux-x64-18_dec_2014.tar.gz
+        mkdir ~/.jdk_8
+        cd ~/.jdk_8
+        axel -q -n $(nproc --all) https://repo.huaweicloud.com/java/jdk/8u202-b08/jdk-8u202-linux-x64.tar.gz
+        tar -xzf jdk-8u202-linux-x64.tar.gz
         sudo ln -f -s /usr/bin/python2.7 /usr/bin/python
     - name: Syncing TWRP sources
       run: |
@@ -40,8 +40,8 @@ jobs:
       run: |
         OLDPATH=$PATH
         OLDJAVAHOME=$JAVA_HOME
-        export PATH="$HOME/.jdk_7/java-se-7u75-ri/bin:$PATH"
-        export JAVA_HOME="$HOME/.jdk_7/java-se-7u75-ri"
+        export PATH="$HOME/.jdk_8/java-se-8u202-ri/bin:$PATH"
+        export JAVA_HOME="$HOME/.jdk_8/java-se-8u202-ri"
         cd ~/TWRP
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
