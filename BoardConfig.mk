@@ -62,3 +62,7 @@ TW_MTP_DEVICE := "/dev/mtp_usb"
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/20200000.usb/gadget/lun%d/file"
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
 TARGET_RECOVERY_PIXEL_FORMAT := "ABGR_8888"
+############################################
+# shrp
+SHRP_EXPRESS := true
+SHRP_LITE := true
