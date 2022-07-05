@@ -1,4 +1,4 @@
-name: OrangeFox Recovery (SM-J320F/G/M)
+name: SkyHawk Recovery (SM-J320F/G/M)
 
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Installing JDK 7 + Build Dependencies
+    - name: Installing JDK 8 + Build Dependencies
       run: |
         sudo apt-get update
         sudo apt-get install zip gcc-multilib g++-multilib \
@@ -42,7 +42,6 @@ jobs:
         export JAVA_HOME="$HOME/.jdk_7/java-se-7u75-ri"
         cd ~/TWRP
         source build/envsetup.sh
-        export OF_DISABLE_MIUI_SPECIFIC_FEATURES=1
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
         lunch omni_j3xlte-eng
