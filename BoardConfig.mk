@@ -66,3 +66,7 @@ TARGET_RECOVERY_PIXEL_FORMAT := "ABGR_8888"
 # shrp
 SHRP_EXPRESS := true
 SHRP_LITE := true
+SHRP_MAINTAINER := notnoelchannel
+SHRP_EXTERNAL := /external_sd
+SHRP_OTG := /usb_otg
+
