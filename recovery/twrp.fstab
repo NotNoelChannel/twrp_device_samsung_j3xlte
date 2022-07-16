@@ -1,20 +1,19 @@
 # mount point	fstype    device    	[device2]
 
-/boot        emmc        /dev/block/platform/sdio_emmc/by-name/KERNEL
-/system      ext4        /dev/block/platform/sdio_emmc/by-name/SYSTEM
-/data        ext4        /dev/block/platform/sdio_emmc/by-name/userdata  flags=encryptable=footer;length=-16384
-/cache       ext4        /dev/block/platform/sdio_emmc/by-name/CACHE
-/recovery    emmc        /dev/block/platform/sdio_emmc/by-name/RECOVERY
-/efs         ext4        /dev/block/platform/sdio_emmc/by-name/efs       flags=display="EFS";backup=1
-/extSdCard   vfat        /dev/block/mmcblk1p1    /dev/block/mmcblk1      flags=display="Micro SDcard";storage;wipeingui;removable
-/usb-otg     vfat        /dev/block/sda1         /dev/block/sda          flags=display="USB-OTG";storage;wipeingui;removable
-/preload     ext4        /dev/block/platform/sdio_emmc/by-name/HIDDEN    flags=display="Preload";wipeingui;backup=1
-/productinfo ext4        /dev/block/platform/sdio_emmc/by-name/prodnv    flags=display="Product Info";backup=1
-/l_modem     emmc        /dev/block/platform/sdio_emmc/by-name/l_modem
-/l_ldsp      emmc        /dev/block/platform/sdio_emmc/by-name/l_ldsp
-/l_gdsp      emmc        /dev/block/platform/sdio_emmc/by-name/l_gdsp
-/persdata    ext4        /dev/block/platform/sdio_emmc/by-name/PERSDATA
-/pmsys	     emmc        /dev/block/platform/sdio_emmc/by-name/pm_sys
-/l_warm      emmc        /dev/block/platform/sdio_emmc/by-name/l_warm
-/nvitem      emmc        /dev/block/platform/sdio_emmc/by-name/l_fixnv2
-
+/dev/block/platform/sdio_emmc/by-name/KERNEL       /boot        emmc            default              recoveryonly
+/dev/block/platform/sdio_emmc/by-name/SYSTEM       /system      ext4            default              recoveryonly
+/dev/block/platform/sdio_emmc/by-name/userdata     /data        ext4            default              wait,length=-16384
+/dev/block/platform/sdio_emmc/by-name/CACHE        /cache       ext4            default              recoveryonly
+/efs         ext4        /dev/block/platform/sdio_emmc/by-name/efs    flags=display="EFS";backup=1
+/external_sd    vfat      /dev/block/mmcblk1p1                                 flags=display="Micro SDcard";storage;wipeingui;removable
+/usb-otg        vfat      /dev/block/sda1         /dev/block/sda               flags=display="USB-OTG";storage;wipeingui;removable
+/preload     ext4        /dev/block/platform/sdio_emmc/by-name/HIDDEN flags=display="Preload";wipeingui;backup=1
+/productinfo ext4        /dev/block/platform/sdio_emmc/by-name/prodnv flags=display="Product Info";backup=1
+/dev/block/platform/sdio_emmc/by-name/RECOVERY     /recovery    emmc            default              recoveryonly
+/dev/block/platform/sdio_emmc/by-name/l_modem      /l_modem     emmc            default              recoveryonly
+/dev/block/platform/sdio_emmc/by-name/l_ldsp       /l_ldsp      emmc            default              recoveryonly
+/dev/block/platform/sdio_emmc/by-name/l_gdsp       /l_gdsp      emmc            default              recoveryonly
+/dev/block/platform/sdio_emmc/by-name/PERSDATA     /persdata    ext4            default              recoveryonly
+/dev/block/platform/sdio_emmc/by-name/pm_sys       /pmsys	    emmc	        default            	 recoveryonly 
+/dev/block/platform/sdio_emmc/by-name/l_warm       /l_warm      emmc            default              recoveryonly 
+/dev/block/platform/sdio_emmc/by-name/l_fixnv2     /nvitem      emmc            default              recoveryonly 
