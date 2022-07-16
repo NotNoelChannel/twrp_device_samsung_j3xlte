@@ -1,4 +1,4 @@
-name: TWRP CI for SM-J320FN
+name: TWRP CI for SM-J320F/G/M
 
 on:
     schedule:
