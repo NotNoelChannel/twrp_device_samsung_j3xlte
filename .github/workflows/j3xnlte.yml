@@ -1,10 +1,6 @@
 name: TWRP CI for SM-J320FN
 
 on:
-  push:
-    # Sequence of patterns matched against refs/tags
-    tags:
-    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
   schedule:
     - cron: '0 0 * * 1'
   workflow_dispatch:
@@ -53,30 +49,9 @@ jobs:
         lunch omni_j3xnlte-eng
         make -j$(nproc --all) recoveryimage
         export PATH=$OLDPATH
-        export JAVA_HOME=$OLDJAVAHOME       
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        export JAVA_HOME=$OLDJAVAHOME      
+    - name: Uploading TWRP builds
       with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
-    - name: making a ZIP
-      run: |
-       cd /home/runner/TWRP/out/target/product/j3xnlte
-       tar -cvf twrp-$(date +%b%d%Y%H%M)-j3xnlte.tar
-       zip twrp-3.6.2-$(date +%b%d%Y%H%M)-j3xnlte.zip twrp-$(date +%b%d%Y%H%M)-j3xnlte.tar recovery.img
-    - name: Upload Release Asset
-      id: upload-release-asset 
-      uses: actions/upload-release-asset@v1
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: /home/runner/TWRP/out/target/product/j3xnlte/twrp-3.6.2-20220816-j3xnlte.zip
-          asset_name: twrp-3.6.2-20220816-j3xnlte.zip
-          asset_content_type: application/zip
+        name: twrp-$(date +%b%d%Y%H%M)
+        path: /home/runner/TWRP/out/target/product/j3xnlte/recovery.*
 
