@@ -1,9 +1,8 @@
 name: TWRP CI for SM-J320FN
-
 on:
-  schedule:
-    - cron: '0 0 * * 1'
-  workflow_dispatch:
+    schedule:
+    - cron: '0 0 * * *'
+    workflow_dispatch:
 
 jobs:
   build:
