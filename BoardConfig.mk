@@ -91,3 +91,5 @@ SHRP_REC                  := /dev/block/platform/sprd-sdhci.3/by-name/RECOVERY
 SHRP_CUSTOM_FLASHLIGHT    := true
 SHRP_FONP_1               := /sys/devices/virtual/camera/rear/rear_flash
 SHRP_FLASH_MAX_BRIGHTNESS := 1
+SHRP_DEVICE_CODE          := j3xnlte
+
