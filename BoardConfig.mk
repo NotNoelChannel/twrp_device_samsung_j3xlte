@@ -80,8 +80,14 @@ TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
 TARGET_RECOVERY_PIXEL_FORMAT := "ABGR_8888"
 ############################################
 # shrp
-SHRP_EXPRESS := true
-SHRP_LITE := true
-SHRP_MAINTAINER := notnoelchannel
-SHRP_EXTERNAL := /external_sd
-SHRP_OTG := /usb_otg
+SHRP_EXPRESS              := true
+SHRP_LITE                 := true
+SHRP_MAINTAINER           := notnoelchannel
+SHRP_OTG                  := /usb_otg
+SHRP_INTERNAL             := /sdcard
+SHRP_EXTERNAL             := /external_sd
+SHRP_FLASH                := true
+SHRP_REC                  := /dev/block/platform/sprd-sdhci.3/by-name/RECOVERY
+SHRP_CUSTOM_FLASHLIGHT    := true
+SHRP_FONP_1               := /sys/devices/virtual/camera/rear/rear_flash
+SHRP_FLASH_MAX_BRIGHTNESS := 1
