@@ -1,4 +1,5 @@
 name: TWRP CI for SM-J320FN
+
 on:
     schedule:
     - cron: '0 0 * * *'
@@ -48,9 +49,9 @@ jobs:
         lunch omni_j3xnlte-eng
         make -j$(nproc --all) recoveryimage
         export PATH=$OLDPATH
-        export JAVA_HOME=$OLDJAVAHOME      
+        export JAVA_HOME=$OLDJAVAHOME
     - name: Uploading TWRP builds
+      uses: actions/upload-artifact@v2
       with:
-        name: twrp-$(date +%b%d%Y%H%M)
+        name: twrp
         path: /home/runner/TWRP/out/target/product/j3xnlte/recovery.*
-
