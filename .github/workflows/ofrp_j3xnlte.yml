@@ -31,7 +31,7 @@ jobs:
         cd ~/TWRP
         mkdir ~/.bin
         curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
-        python3 ~/.bin/repo init --depth=1 -u https://gitlab.com/OrangeFox/Manifest.git -b fox_7.1
+        python3 ~/.bin/repo init --depth=1 -u https://github.com/unlegacy-devices/fox-7.1_manifest -b twrp-7.1
         git clone --branch twrp-5.1-j3xnlte --single-branch https://github.com/NotNoelChannel/twrp_device_samsung_j3xnlte.git ~/TWRP/device/samsung/j3xnlte
         python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
     - name: Building PBRP
@@ -41,7 +41,6 @@ jobs:
         export PATH="$HOME/.jdk_7/java-se-7u75-ri/bin:$PATH"
         export JAVA_HOME="$HOME/.jdk_7/java-se-7u75-ri"
         cd ~/TWRP
-        git clone https://gitlab.com/OrangeFox/misc/theme.git bootable/recovery/gui/theme
         source build/envsetup.sh
         export OF_DISABLE_MIUI_SPECIFIC_FEATURES=1
         export ALLOW_MISSING_DEPENDENCIES=true
