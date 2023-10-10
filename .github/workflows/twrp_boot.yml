@@ -2,7 +2,7 @@ name: TWRP CI for SM-J320FN/F/G/M (boot.img)
 
 on:
     schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 1 * * *'
     workflow_dispatch:
 
 jobs:
@@ -52,4 +52,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: twrp
-        path: /home/runner/TWRP/out/target/product/j3xlte/recovery.*
+        path: /home/runner/TWRP/out/target/product/j3xlte/boot.*
