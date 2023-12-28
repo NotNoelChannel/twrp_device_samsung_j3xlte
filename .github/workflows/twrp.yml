@@ -41,6 +41,7 @@ jobs:
         export PATH="$HOME/.jdk_7/java-se-7u75-ri/bin:$PATH"
         export JAVA_HOME="$HOME/.jdk_7/java-se-7u75-ri"
         cd ~/TWRP
+        git clone https://github.com/NotNoelChannel/android_kernel_samsung_sharkls -b lineage-15.1 ~/TWRP/kernel/samsung/sharkls
         sudo git clone --depth 1 --branch android-7.1.2_r37 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8 /opt/toolchains/arm-eabi-4.8/
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
