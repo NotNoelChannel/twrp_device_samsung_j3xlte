@@ -36,8 +36,10 @@ BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --dt device/samsung/j3xlte/prebuilt/dt.img
 
-# prebuilt kernel
-TARGET_PREBUILT_KERNEL := device/samsung/j3xlte/prebuilt/kernel
+TARGET_KERNEL_CONFIG := recovery_j3xnlte_defconfig
+TARGET_KERNEL_SOURCE := kernel/samsung/sharkls
+KERNEL_TOOLCHAIN := /opt/toolchains/arm-eabi-4.8/bin
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-eabi-
 
 BOARD_BOOTIMAGE_PARTITION_SIZE := 20971520
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 20971520

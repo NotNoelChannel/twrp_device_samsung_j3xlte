@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    name: TWRP Build CI
+    name: SHRP Build CI
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -24,12 +24,12 @@ jobs:
         java-version: '8'
     - name: Syncing SHRP sources
       run: |
-        mkdir ~/TWRP
-        cd ~/TWRP
+        mkdir ~/SHRP
+        cd ~/SHRP
         mkdir ~/.bin
         curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
         python3 ~/.bin/repo init --depth=1 -u https://github.com/SHRP/manifest.git -b v3_9.0
-        git clone --branch twrp-5.1 --single-branch https://github.com/NotNoelChannel/twrp_device_samsung_j3xnlte.git ~/TWRP/device/samsung/j3xlte
+        git clone --branch twrp-5.1 --single-branch https://github.com/NotNoelChannel/twrp_device_samsung_j3xnlte.git ~/SHRP/device/samsung/j3xlte
         python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
     - name: Building SHRP
       run: |
@@ -37,7 +37,8 @@ jobs:
         OLDJAVAHOME=$JAVA_HOME
         export PATH="$HOME/.jdk_7/java-se-7u75-ri/bin:$PATH"
         export JAVA_HOME="$HOME/.jdk_7/java-se-7u75-ri"
-        cd ~/TWRP
+        cd ~/SHRP
+        sudo git clone --depth 1 --branch android-7.1.2_r37 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8 /opt/toolchains/arm-eabi-4.8/
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
@@ -45,10 +46,10 @@ jobs:
         make -j$(nproc --all) recoveryimage
         export PATH=$OLDPATH
         export JAVA_HOME=$OLDJAVAHOME
-    - name: Uploading TWRP builds
+    - name: Uploading SHRP builds
       uses: actions/upload-artifact@v2
       with:
-        name: twrp
+        name: shrp
         path: |
-          /home/runner/TWRP/out/target/product/j3xlte/recovery.*
-          /home/runner/TWRP/out/target/product/j3xlte/*.zip
+          /home/runner/SHRP/out/target/product/j3xlte/recovery.*
+          /home/runner/SHRP/out/target/product/j3xlte/*.zip
