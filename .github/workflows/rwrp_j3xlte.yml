@@ -1,0 +1,54 @@
+name: RWRP CI (SM-J320FN/F/G/M)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: RWRP Build CI
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Installing JDK 7 + Build Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev libncurses5 axel python
+    
+    - name: Install OpenJDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'zulu'
+        java-version: '8'
+    
+    - name: Syncing RWRP sources
+      run: |
+        mkdir ~/RWRP
+        cd ~/RWRP
+        mkdir ~/.bin
+        curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
+        python3 ~/.bin/repo init --depth=1 -u https://github.com/unlegacy-devices/rw_manifest.git -b rw-n
+        git clone --branch twrp-5.1 --single-branch https://github.com/NotNoelChannel/twrp_device_samsung_j3xnlte.git ~/RWRP/device/samsung/j3xnlte
+        python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
+    - name: Building RWRP
+      run: |
+        OLDPATH=$PATH
+        OLDJAVAHOME=$JAVA_HOME
+        export PATH="$HOME/.jdk_7/java-se-7u75-ri/bin:$PATH"
+        export JAVA_HOME="$HOME/.jdk_7/java-se-7u75-ri"
+        cd ~/RWRP
+        source build/envsetup.sh
+        export ALLOW_MISSING_DEPENDENCIES=true
+        export LC_ALL="C"
+        lunch omni_j3xnlte-eng
+        mka recoveryimage
+        export PATH=$OLDPATH
+        export JAVA_HOME=$OLDJAVAHOME
+    - name: Uploading RWRP builds
+      uses: actions/upload-artifact@v2
+      with:
+        name: rwrp
+        path: /home/runner/RWRP/out/target/product/j3xnlte/recovery.*
