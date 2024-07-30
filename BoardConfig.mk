@@ -30,14 +30,14 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
 TARGET_CPU_VARIANT := cortex-a7
 
-BOARD_KERNEL_CMDLINE := console=ttyS1,115200n8
-
+BOARD_KERNEL_CMDLINE := console=ttyS1,115200n8 androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --dt device/samsung/j3xlte/prebuilt/dt.img
-
-# prebuilt kernel
-TARGET_PREBUILT_KERNEL := device/samsung/j3xlte/prebuilt/kernel
+BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100
+TARGET_KERNEL_CONFIG := recovery_j3x_defconfig
+TARGET_KERNEL_SOURCE := kernel/samsung/sharkls
+KERNEL_TOOLCHAIN := /opt/toolchains/arm-eabi-4.8/bin
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-eabi-
 
 BOARD_BOOTIMAGE_PARTITION_SIZE := 20971520
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 20971520
@@ -50,24 +50,33 @@ BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_SUPPRESS_SECURE_ERASE := true
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
+
+# Workaround for error copying vendor files to recovery ramdisk
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+TARGET_COPY_OUT_VENDOR := vendor
+
+# Crypto
+VENDOR_SECURITY_PATCH := 2099-12-31
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_FBE := true
+TW_INCLUDE_FBE_METADATA_DECRYPT := true
+BOARD_USES_METADATA_PARTITION := true
+
 # TWRP
 TW_THEME := portrait_hdpi
 TW_EXCLUDE_SUPERSU := true
 TW_EXCLUDE_TWRPAPP := true
 TW_NO_EXFAT_FUSE := true
 TW_NEW_ION_HEAP := true
-TW_INCLUDE_CRYPTO := true
 BOARD_SUPPRESS_SECURE_ERASE := true
 TW_DEVICE_VERSION := 0_notnoelchannel
 RECOVERY_SDCARD_ON_DATA := true
 TW_NO_REBOOT_BOOTLOADER := true
 TW_HAS_DOWNLOAD_MODE := true
-# Paths
 TARGET_RECOVERY_DEVICE_DIRS := device/samsung/j3xlte
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := device/samsung/j3xlte/recovery/recovery_keys.c
 BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_FSTAB := device/samsung/j3xlte/recovery/recovery.fstab
-################################################
 # display
 TW_MAX_BRIGHTNESS := 255
 TW_DEFAULT_BRIGHTNESS := 162
@@ -78,18 +87,4 @@ TW_MTP_DEVICE := "/dev/mtp_usb"
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/20200000.usb/gadget/lun%d/file"
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
 TARGET_RECOVERY_PIXEL_FORMAT := "ABGR_8888"
-############################################
-# shrp
-SHRP_EXPRESS              := true
-SHRP_LITE                 := true
-SHRP_MAINTAINER           := notnoelchannel
-SHRP_OTG                  := /usb_otg
-SHRP_INTERNAL             := /sdcard
-SHRP_EXTERNAL             := /external_sd
-SHRP_FLASH                := true
-SHRP_REC                  := /dev/block/platform/sprd-sdhci.3/by-name/RECOVERY
-SHRP_CUSTOM_FLASHLIGHT    := true
-SHRP_FONP_1               := /sys/devices/virtual/camera/rear/rear_flash
-SHRP_FLASH_MAX_BRIGHTNESS := 1
-SHRP_DEVICE_CODE          := j3xnlte
 

@@ -1,4 +1,4 @@
-# TWRP device tree for Samsung Galaxy J3 (2016)
+# TWRP device tree for Samsung Galaxy J3 (twrp-10.0, work in progress)
 
 The Samsung Samsung Galaxy J3 2016 (codenamed _"j3xlte/j3xnlte"_) is a budget smartphone from Samsung.
 It was released in May 2016.
