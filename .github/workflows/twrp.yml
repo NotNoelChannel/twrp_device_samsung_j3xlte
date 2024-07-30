@@ -43,6 +43,7 @@ jobs:
         export PATH="$HOME/.jdk_7/java-se-7u75-ri/bin:$PATH"
         export JAVA_HOME="$HOME/.jdk_7/java-se-7u75-ri"
         cd ~/TWRP
+        sudo git clone --depth 1 --branch android-8.0.0_r36 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8 /opt/toolchains/arm-eabi-4.8/
         git clone https://github.com/j3xlte-dev/android_kernel_samsung_j3xlte/ -b android-9.0 ~/TWRP/kernel/samsung/sharkls
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
@@ -51,7 +52,7 @@ jobs:
         make -j$(nproc --all) recoveryimage
         export PATH=$OLDPATH
         export JAVA_HOME=$OLDJAVAHOME
-    - name: Uploading TWRP builds
+    - name: Uploading TWRP 3.5.2-10.0
       uses: actions/upload-artifact@v2
       with:
         name: twrp
