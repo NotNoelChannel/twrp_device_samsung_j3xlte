@@ -44,8 +44,16 @@ jobs:
         export OF_DISABLE_MIUI_SPECIFIC_FEATURES=1
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
+        export OF_USE_GREEN_LED=0
+        export FOX_RECOVERY_SYSTEM_PARTITION="/dev/block/platform/sdio_emmc/by-name/SYSTEM"
+        export FOX_RECOVERY_BOOT_PARTITION="/dev/block/platform/sdio_emmc/by-name/KERNEL"
+        export FOX_RECOVERY_INSTALL_PARTITION="/dev/block/platform/sdio_emmc/by-name/RECOVERY"
         export OF_FL_PATH1="/flashlight"
         export OF_LEGACY_SHAR512=1
+        export OF_DISABLE_KEYMASTER2=1
+        export OF_MAINTAINER="notnoelchannel"
+        export TARGET_ARCH="arm"
+        export FOX_BUILD_TYPE="Beta"
         lunch omni_j3xlte-eng
         make -j$(nproc --all) recoveryimage
         export PATH=$OLDPATH
