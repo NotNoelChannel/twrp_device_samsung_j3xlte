@@ -46,7 +46,8 @@ jobs:
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
-        brunch j3xnlte
+        lunch lineage_j3xnlte-userdebug
+        make -j$(nproc --all) otapackage
         export PATH=$OLDPATH
         export JAVA_HOME=$OLDJAVAHOME
     - name: CD to LineageOS builds
@@ -58,8 +59,3 @@ jobs:
       with:
         name: lineageos
         path: /home/runner/TWRP/out/target/product/j3xnlte/*.zip
-    - name: Uploading LineageOS Recovery builds
-      uses: actions/upload-artifact@v3
-      with:
-        name: lineagerecovery
-        path: /home/runner/TWRP/out/target/product/j3xnlte/recovery.*
