@@ -43,6 +43,7 @@ jobs:
         cd ~/TWRP
         git config --global user.email "you@example.com"
         git config --global user.name "Your Name"
+        bash ~/TWRP/device/samsung/sharkls-common/patches/apply_sprd-diff.sh
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
@@ -50,10 +51,6 @@ jobs:
         make -j$(nproc --all) otapackage
         export PATH=$OLDPATH
         export JAVA_HOME=$OLDJAVAHOME
-    - name: CD to LineageOS builds
-      run: |
-         cd $OUT
-         ls
     - name: Uploading LineageOS builds
       uses: actions/upload-artifact@v3
       with:
