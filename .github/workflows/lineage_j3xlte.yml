@@ -34,16 +34,23 @@ jobs:
         curl --create-dirs -L -o .repo/local_manifests/j3xlte.xml -O -L https://raw.githubusercontent.com/NotNoelChannel/j3xlte_manifest/refs/heads/main/j3xlte.xml
         git clone --depth 1 --branch android-7.1.2_r37 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8 /opt/toolchains/arm-eabi-4.8/
         python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
+    - name: Cleaning up even more
+      run: |
+        sudo du -sh /var/cache/apt/archives
+        sudo apt-get autoclean
+        sudo journalctl --rotate
+        sudo journalctl --vacuum-size=100M
     - name: Building LineageOS
       run: |
         OLDPATH=$PATH
         OLDJAVAHOME=$JAVA_HOME
         export PATH="$HOME/.jdk_7/java-se-7u75-ri/bin:$PATH"
         export JAVA_HOME="$HOME/.jdk_7/java-se-7u75-ri"
-        cd ~/TWRP
         git config --global user.email "you@example.com"
         git config --global user.name "Your Name"
-        bash ~/TWRP/device/samsung/sharkls-common/patches/apply_sprd-diff.sh
+        cd ~/TWRP/device/samsung/sharkls-common/patches
+        bash apply_sprd-diff.sh
+        cd ~/TWRP
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
