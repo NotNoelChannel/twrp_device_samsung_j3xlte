@@ -30,14 +30,18 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
 TARGET_CPU_VARIANT := cortex-a7
 
-BOARD_KERNEL_CMDLINE := console=ttyS1,115200n8
-
+BOARD_KERNEL_CMDLINE := console=ttyS1,115200n8 androidboot.selinux=permissive
+BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --dt device/samsung/j3xlte/prebuilt/dt.img
+BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100
+TARGET_KERNEL_CONFIG := j3xlte_defconfig
+TARGET_KERNEL_SOURCE := kernel/samsung/sharkls
+KERNEL_TOOLCHAIN := /opt/toolchains/arm-eabi-4.8/bin
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-eabi-
 
-# prebuilt kernel
-TARGET_PREBUILT_KERNEL := device/samsung/j3xlte/prebuilt/kernel
+BOARD_CUSTOM_BOOTIMG_MK := device/samsung/j3xlte/custombootimg.mk
+BOARD_CANT_BUILD_RECOVERY_FROM_BOOT_PATCH := true
 
 BOARD_BOOTIMAGE_PARTITION_SIZE := 20971520
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 20971520
